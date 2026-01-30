@@ -1,0 +1,113 @@
+/* Voice AI Platform - Figma-Inspired Color System */
+
+:root {
+  /* === BRAND GRADIENTS === */
+  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  --gradient-secondary: linear-gradient(135deg, #FF5C00 0%, #FF8A4C 100%);
+  --gradient-success: linear-gradient(135deg, #22C55E 0%, #14B8A6 100%);
+  --gradient-hero: linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 100%);
+
+  /* === BACKGROUNDS === */
+  --bg-page: #0A0F1C;
+  --bg-surface: #0F172A;
+  --bg-elevated: #1E293B;
+  --bg-interactive: #334155;
+  --bg-white: #FFFFFF;
+  --bg-off-white: #FAFAFA;
+
+  /* === TEXT === */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-tertiary: #94A3B8;
+  --text-disabled: #64748B;
+  --text-placeholder: #475569;
+  --text-dark: #0F172A;
+  --text-dark-secondary: #64748B;
+
+  /* === BORDERS === */
+  --border-default: #334155;
+  --border-subtle: #1E293B;
+  --border-light: #E2E8F0;
+
+  /* === BRAND COLORS === */
+  --indigo-primary: #6366F1;
+  --indigo-light: #8B5CF6;
+  --purple-primary: #8B5CF6;
+  --purple-light: #A855F7;
+  --orange-primary: #FF5C00;
+  --orange-light: #FF8A4C;
+
+  /* === SEMANTIC COLORS === */
+  --success: #22C55E;
+  --success-bg: #F0FDF4;
+  --success-text: #166534;
+
+  --warning: #F59E0B;
+  --warning-bg: #FEF3C7;
+  --warning-text: #D97706;
+
+  --error: #EF4444;
+  --error-bg: #FEE2E2;
+  --error-text: #991B1B;
+
+  --info: #3B82F6;
+  --info-bg: #EFF6FF;
+  --info-text: #1E40AF;
+
+  /* === FEATURE CARD TINTS === */
+  --tint-purple: #EEF2FF;
+  --tint-green: #F0FDF4;
+  --tint-yellow: #FEF3C7;
+  --tint-blue: #EFF6FF;
+  --tint-pink: #FCE7F3;
+  --tint-teal: #F0FDFA;
+
+  /* === SHADOWS === */
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 15px 30px rgba(15, 23, 42, 0.12);
+  --shadow-xl: 0 30px 60px rgba(15, 23, 42, 0.15);
+  --shadow-glow-purple: 0 12px 30px rgba(99, 102, 241, 0.3);
+  --shadow-glow-orange: 0 12px 30px rgba(255, 92, 0, 0.3);
+}
+
+/* Utility classes for gradients */
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-secondary {
+  background: var(--gradient-secondary);
+}
+
+.gradient-success {
+  background: var(--gradient-success);
+}
+
+.gradient-hero {
+  background: var(--gradient-hero);
+}
+
+/* Glass morphism effect */
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover glow effects */
+.hover-glow-purple {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow-purple:hover {
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.hover-glow-orange {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow-orange:hover {
+  box-shadow: var(--shadow-glow-orange);
+}
