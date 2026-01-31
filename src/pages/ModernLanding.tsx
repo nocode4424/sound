@@ -1,5 +1,5 @@
 import { ModernHeader } from '@/components/layout/modern-header'
-import { VoiceOrb } from '@/components/voice/VoiceOrb'
+import { VoiceOrb, type VizType } from '@/components/voice/VoiceOrb'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -18,7 +18,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 // ─── Fade-in helpers ─────────────────────────────────────────
 const fadeUp = {
@@ -161,8 +161,39 @@ const STATS = [
 ]
 
 // ─── Page ────────────────────────────────────────────────────
+const VIZ_OPTIONS: { type: VizType; label: string }[] = [
+  { type: 'radial-bars', label: 'Radial Bars' },
+  { type: 'gradient-mist', label: 'Gradient Mist' },
+  { type: 'typography-echo', label: 'Typography Echo' },
+  { type: 'constellation', label: 'Constellation' },
+  { type: 'edge-glow', label: 'Edge Glow' },
+  { type: 'waveform-ring', label: 'Waveform Ring' },
+  { type: 'particle-field', label: 'Particle Field' },
+  { type: 'pulse-rings', label: 'Pulse Rings' },
+  { type: 'frequency-bars', label: 'Frequency Bars' },
+  { type: 'aurora', label: 'Aurora' },
+]
+
 export default function ModernLanding() {
-  const [callActive, setCallActive] = useState(false)
+  const [vizType, setVizType] = useState<VizType>('radial-bars')
+  const [clickTriggered, setClickTriggered] = useState(false)
+
+  // Click anywhere on the page to start the call (except interactive elements)
+  const handlePageClick = useCallback((e: MouseEvent) => {
+    const target = e.target as HTMLElement
+    // Don't trigger if clicking a button, link, or the viz picker
+    if (
+      target.closest('button') ||
+      target.closest('a') ||
+      target.closest('[data-viz-picker]')
+    ) return
+    setClickTriggered(true)
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('click', handlePageClick)
+    return () => document.removeEventListener('click', handlePageClick)
+  }, [handlePageClick])
 
   return (
     <div className="min-h-screen bg-[#0A0F1C] text-white overflow-x-hidden">
@@ -259,21 +290,41 @@ export default function ModernLanding() {
               transition={{ delay: 0.3, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="order-1 lg:order-2 flex justify-center"
             >
-              <VoiceOrb
-                onCallStart={() => setCallActive(true)}
-                onCallEnd={() => setCallActive(false)}
-              />
+              <VoiceOrb vizType={vizType} externalTrigger={clickTriggered} />
             </motion.div>
           </div>
 
-          {/* Hint text below orb on mobile */}
+          {/* Visualization picker */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            data-viz-picker
+            className="mt-8 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto"
+          >
+            {VIZ_OPTIONS.map((opt) => (
+              <button
+                key={opt.type}
+                onClick={() => setVizType(opt.type)}
+                className={`px-3 py-1.5 text-xs rounded-full border transition-all cursor-pointer ${
+                  vizType === opt.type
+                    ? 'bg-white/10 border-white/20 text-white'
+                    : 'bg-transparent border-white/[0.06] text-white/30 hover:text-white/50 hover:border-white/10'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </motion.div>
+
+          {/* Hint text */}
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: callActive ? 0 : 1 }}
+            animate={{ opacity: clickTriggered ? 0 : 1 }}
             transition={{ delay: 2.5, duration: 1 }}
-            className="text-center text-sm text-white/25 mt-6 lg:hidden"
+            className="text-center text-sm text-white/25 mt-4"
           >
-            Tap the orb to start a demo call
+            Click anywhere to start a demo call
           </motion.p>
         </div>
       </section>
